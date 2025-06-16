@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Wildlife</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c8437;
+            text-align: center;
+        }
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .donation-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .highlighted {
+            border: 2px solid #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            margin-top: 10px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .btn-secondary {
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            background: white;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            box-sizing: border-box;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="register.html">conserve</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Support Wildlife Conservation</h1>
+        <p style="text-align: center;">Your donation helps protect endangered species</p>
+
+        <div class="donation-options">
+            <div class="donation-card">
+                <h3>Adopt an Animal</h3>
+                <p>Symbolically adopt an animal</p>
+                <a href="#adopt" class="btn btn-secondary">Learn More</a>
+            </div>
+            
+            <div class="donation-card highlighted">
+                <h3>One-Time Donation</h3>
+                <p>Make a single contribution</p>
+                <button class="btn btn-primary">Donate Now</button>
+            </div>
+            
+            <div class="donation-card">
+                <h3>Monthly Support</h3>
+                <p>Recurring donations</p>
+                <a href="#monthly" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+
+        <h2>Make a Donation</h2>
+        <form>
+            <label for="amount">Amount (₹)</label>
+            <input type="number" id="amount" min="10">
+            
+            <label for="name">Full Name</label>
+            <input type="text" id="name">
+            
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            
+            <button type="submit" class="btn btn-primary">Submit Donation</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Zoography</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Zoo Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c8437;
+        }
+        .contact-form {
+            margin: 20px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .contact-info {
+            margin: 30px 0;
+        }
+        .contact-item {
+            margin-bottom: 15px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Zoography</h1>
+        <nav>
+            <a href="index.html" style="color: white;">Home</a> | 
+            <a href="contact.html" style="color: white;">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Contact Us</h1>
+        <div class="main-container">
+        
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" required>
+                        <option value="">-- Select --</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="booking">Booking Help</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="contact-item">
+                <h3>Address</h3>
+                <p>123 Wildlife Lane, New Delhi, India</p>
+            </div>
+            
+            <div class="contact-item">
+                <h3>Email</h3>
+                <p>info@zooguide.com</p>
+            </div>
+            
+            <div class="contact-item">
+                <h3>Phone</h3>
+                <p>+91 11 2345 6789</p>
+            </div>
+            
+            <div class="contact-item">
+                <h3>Hours</h3>
+                <p>Mon-Fri: 9AM-6PM</p>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Zoography</p>
+    </footer>
+</body>
+</html>

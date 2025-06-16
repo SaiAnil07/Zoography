@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Routes | ZOOGRAPHY</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/routes.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #route-map {
+            height: 500px;
+            width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .transport-option {
+            transition: all 0.3s ease;
+        }
+        .transport-option:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <header class="routes-header">
+        <!-- Same header as other pages -->
+    </header>
+
+    <main class="routes-container">
+        <section class="routes-hero">
+            <h1>Plan Your Visit</h1>
+            <p>Find the best routes to our zoos and wildlife parks</p>
+        </section>
+
+        <div class="routes-content">
+            <div class="routes-main">
+                <section class="zoo-selector">
+                    <h2>Select a Zoo</h2>
+                    <div class="zoo-cards" id="zoo-cards">
+                        <!-- Zoo cards will be loaded here -->
+                    </div>
+                </section>
+
+                <section class="route-details">
+                    <h2 id="selected-zoo-name">National Wildlife Park</h2>
+                    <div id="route-map"></div>
+                    
+                    <div class="transport-options">
+                        <h3>Transportation Options</h3>
+                        <div class="options-grid" id="transport-options">
+                            <!-- Transport options will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="directions">
+                        <h3>Step-by-Step Directions</h3>
+                        <div class="directions-tabs">
+                            <button class="tab-btn active" data-mode="driving">Driving</button>
+                            <button class="tab-btn" data-mode="transit">Public Transport</button>
+                            <button class="tab-btn" data-mode="walking">Walking</button>
+                            <button class="tab-btn" data-mode="bicycling">Cycling</button>
+                        </div>
+                        <div class="directions-content" id="directions-content">
+                            <!-- Directions will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="routes-sidebar">
+                <div class="sidebar-card">
+                    <h3>Quick Tips</h3>
+                    <ul class="tips-list">
+                        <li>Weekends are busiest - arrive early</li>
+                        <li>Check weather before visiting</li>
+                        <li>Download our mobile app for live updates</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Parking Information</h3>
+                    <div class="parking-info">
+                        <p><strong>Capacity:</strong> 850 vehicles</p>
+                        <p><strong>Rates:</strong> $10/day (free for members)</p>
+                        <p><strong>EV Charging:</strong> 12 stations available</p>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Public Transport Lines</h3>
+                    <div class="transport-lines">
+                        <div class="transport-line">
+                            <span class="line-icon" style="background-color: #FF5733;">B</span>
+                            <span>Bus Line 102 (Zoo Express)</span>
+                        </div>
+                        <div class="transport-line">
+                            <span class="line-icon" style="background-color: #33A1FF;">M</span>
+                            <span>Metro Blue Line</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Same footer as other pages -->
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Sample data for zoos
+        const zoos = [
+            {
+                id: 1,
+                name: "National Wildlife Park",
+                location: "New Delhi",
+                distance: "12km from city center",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpugoqypiCw5M5lFdzzMLAIJeGYc1rBiTnjQ&s",
+                coordinates: [28.6139, 77.2090],
+                transport: {
+                    driving: "30-45 min via NH44",
+                    transit: "Take Metro Blue Line to Central Station, then Bus 102",
+                    walking: "Not recommended (no pedestrian paths)",
+                    bicycling: "45 min via dedicated bike lanes"
+                },
+                parking: {
+                    capacity: 850,
+                    evCharging: true,
+                    cost: 10
+                }
+            },
+            {
+                id: 2,
+                name: "Marine Life Sanctuary",
+                location: "Mumbai",
+                distance: "8km from downtown",
+                image: "https://www.360globalgadgets.com/image/catalog/Blog/pink%20flamingo/5dca40f1e3338f6d8dc8cbfa_DSCN3405-1.jpg",
+                coordinates: [19.0760, 72.8777],
+                transport: {
+                    driving: "20-30 min via Eastern Express Highway",
+                    transit: "Local trains to Bandra, then taxi/auto",
+                    walking: "60 min from Bandra Station",
+                    bicycling: "35 min coastal route"
+                },
+                parking: {
+                    capacity: 400,
+                    evCharging: false,
+                    cost: 15
+                }
+            },
+            {
+                id: 3,
+                name: "Himalayan Animal Reserve",
+                location: "Darjeeling",
+                distance: "5km from town",
+                image: "https://darjeelingzoo.in/admins_zoo/s_file/temp/croppedImg_1467996172.jpeg",
+                coordinates: [27.0360, 88.2627],
+                transport: {
+                    driving: "15 min via Hill Cart Road",
+                    transit: "Local jeeps from Chowk Bazaar",
+                    walking: "90 min scenic mountain walk",
+                    bicycling: "25 min (steep inclines)"
+                },
+                parking: {
+                    capacity: 200,
+                    evCharging: true,
+                    cost: 5
+                }
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load zoo cards
+            const zooCardsContainer = document.getElementById('zoo-cards');
+            zoos.forEach(zoo => {
+                zooCardsContainer.innerHTML += `
+                    <div class="zoo-card" data-zoo-id="${zoo.id}">
+                        <div class="zoo-card-image" style="background-image: url('${zoo.image}')"></div>
+                        <div class="zoo-card-content">
+                            <h3>${zoo.name}</h3>
+                            <p>${zoo.location} • ${zoo.distance}</p>
+                            <button class="btn-text select-zoo" data-zoo-id="${zoo.id}">View Routes</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Default to first zoo
+            loadZooDetails(zoos[0]);
+
+            // Add event listeners to zoo cards
+            document.querySelectorAll('.select-zoo').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const zooId = parseInt(this.getAttribute('data-zoo-id'));
+                    const selectedZoo = zoos.find(zoo => zoo.id === zooId);
+                    loadZooDetails(selectedZoo);
+                });
+            });
+
+            // Tab switching for directions
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const mode = this.getAttribute('data-mode');
+                    const selectedZooId = document.querySelector('.zoo-card.active')?.getAttribute('data-zoo-id');
+                    const zoo = zoos.find(z => z.id === parseInt(selectedZooId));
+                    
+                    if (zoo) {
+                        document.getElementById('directions-content').innerHTML = `
+                            <p><strong>${mode.charAt(0).toUpperCase() + mode.slice(1)} Directions:</strong></p>
+                            <p>${zoo.transport[mode]}</p>
+                            <p>Estimated time: ${getEstimatedTime(mode, zoo)}</p>
+                        `;
+                    }
+                });
+            });
+        });
+
+        function loadZooDetails(zoo) {
+            // Update active zoo card
+            document.querySelectorAll('.zoo-card').forEach(card => {
+                card.classList.remove('active');
+                if (parseInt(card.getAttribute('data-zoo-id')) === zoo.id) {
+                    card.classList.add('active');
+                }
+            });
+
+            // Update zoo name
+            document.getElementById('selected-zoo-name').textContent = zoo.name;
+
+            // Initialize/update map
+            if (window.routeMap) {
+                window.routeMap.setView(zoo.coordinates, 13);
+                window.routeMarker.setLatLng(zoo.coordinates)
+                    .bindPopup(`<b>${zoo.name}</b><br>${zoo.location}`)
+                    .openPopup();
+            } else {
+                window.routeMap = L.map('route-map').setView(zoo.coordinates, 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(window.routeMap);
+                
+                window.routeMarker = L.marker(zoo.coordinates).addTo(window.routeMap)
+                    .bindPopup(`<b>${zoo.name}</b><br>${zoo.location}`)
+                    .openPopup();
+            }
+
+            // Load transport options
+            const transportOptions = document.getElementById('transport-options');
+            transportOptions.innerHTML = `
+                <div class="transport-option">
+                    
+                    <h4>Driving</h4>
+                    <p>${zoo.transport.driving}</p>
+                    <p>Parking: ${zoo.parking.capacity} spots (${zoo.parking.evCharging ? 'EV charging available' : 'No EV charging'})</p>
+                </div>
+                <div class="transport-option">
+                    
+                    <h4>Public Transport</h4>
+                    <p>${zoo.transport.transit}</p>
+                </div>
+                <div class="transport-option">
+                    
+                    <h4>Walking</h4>
+                    <p>${zoo.transport.walking}</p>
+                </div>
+                <div class="transport-option">
+                    
+                    <h4>Cycling</h4>
+                    <p>${zoo.transport.bicycling}</p>
+                </div>
+            `;
+
+            // Load default directions (driving)
+            document.getElementById('directions-content').innerHTML = `
+                <p><strong>Driving Directions:</strong></p>
+                <p>${zoo.transport.driving}</p>
+                <p>Estimated time: 30-45 minutes</p>
+                <p>Parking fee: ₹${zoo.parking.cost}/day</p>
+            `;
+        }
+
+        function getEstimatedTime(mode, zoo) {
+            // Simple estimation logic - in a real app you'd use Map APIs
+            switch(mode) {
+                case 'driving': return '30-45 minutes';
+                case 'transit': return '50-70 minutes';
+                case 'walking': return '90+ minutes';
+                case 'bicycling': return '45 minutes';
+                default: return 'Varies';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arignar Anna Zoological Park</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        .search-box {
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .search-box input {
+            padding: 8px;
+            width: 70%;
+        }
+        
+        .search-box button {
+            padding: 8px;
+            background: #388E3C;
+            color: white;
+            border: none;
+        }
+        
+        .zoo-header {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .main {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .animal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .animal-card {
+            border: 1px solid #ddd;
+        }
+        
+        .animal-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+        
+        .info-card {
+            background: #f5f5f5;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div>
+                    <a href="index.html">Home</a>
+                    <a href="animals.html">Animals</a>
+                    <a href="register.html">Conserve</a>
+                    <a href="weather.html">Weather</a>
+                </div>>
+                <div>
+                    <a href="login.html">Login</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-box">
+            <input type="text" id="zoo-search" placeholder="Search zoos...">
+            <button onclick="searchZoo()">Search</button>
+        </div>
+
+        <div id="zoo-details">
+            <div class="zoo-header">
+                <h1>Arignar Anna Zoological Park</h1>
+                <p>Chennai, Tamil Nadu | Est. 1855</p>
+            </div>
+
+            <div class="content">
+                <div class="main">
+                    <section>
+                        <h2>About</h2>
+                        <p>India's oldest and largest zoo with over 2,500 animals across 170+ species.</p>
+                    </section>
+
+                    <section>
+                        <h2>Animals</h2>
+                        <div class="animal-grid">
+                            <div class="animal-card">
+                                <img src="https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVuZ2FsJTIwdGlnZXJ8ZW58MHx8MHx8fDA%3D" alt="Bengal Tiger">
+                                <h3>Bengal Tiger</h3>
+                            </div>
+                            <div class="animal-card">
+                                <img src="https://images4.alphacoders.com/699/thumb-1920-699527.jpg" alt="Indian Peafowl">
+                                <h3>Indian Peafowl</h3>
+                            </div>
+                            <div class="animal-card">
+                                <img src="https://s3.animalia.bio/animals/photos/full/1.25x1/greater-one-horned-rhinocerosjpg.webp?id=83680954bf71ca06551d0af80be74199" alt="Indian Rhinoceros">
+                                <h3>Indian Rhinoceros</h3>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="sidebar">
+                    <div class="info-card">
+                        <h2>Visitor Info</h2>
+                        <p>Open: 9AM - 5:30PM (Closed Tue)</p>
+                        <p>Prices: ₹50 (Adults), ₹20 (Children)</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Weather</h2>
+                        <p>Today: Sunny, 32°C</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Zoography</p>
+    </footer>
+
+    <script>
+        function searchZoo() {
+            const searchTerm = document.getElementById('zoo-search').value.toLowerCase();
+            if (searchTerm.includes('delhi')) {
+                alert('Showing results for Delhi Zoo');
+            } else if (searchTerm.includes('chennai') || searchTerm.includes('anna')) {
+                alert('Showing results for Arignar Anna Zoological Park');
+            } else {
+                alert('No matching zoos found');
+            }
+        }
+    </script>
+</body>
+</html>

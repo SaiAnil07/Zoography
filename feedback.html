@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | India Zoo Guide</title>
+    <!-- In the <head> section -->
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/responsive.css">
+    <style>
+        .feedback-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        @media (min-width: 992px) {
+            .feedback-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .feedback-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .reviews-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .rating-container {
+            margin: 1rem 0;
+        }
+        
+        .rating-stars {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-stars input {
+            display: none;
+        }
+        
+        .rating-stars label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        
+        .rating-stars input:checked ~ label {
+            color: #ffc107;
+        }
+        
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
+            color: #ffc107;
+        }
+        
+        .review-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .review-author {
+            font-weight: bold;
+        }
+        
+        .review-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 0.5rem;
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 1rem 0;
+        }
+        
+        .gallery-item {
+            height: 120px;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <!-- Navigation same as previous examples -->
+    </header>
+
+    <main class="container">
+        <h1>Share Your Experience</h1>
+        
+        <div class="feedback-container">
+            <div class="feedback-form">
+                <h2>Submit Feedback</h2>
+                <form id="feedback-form">
+                    <div class="form-group">
+                        <label for="zoo-select">Select Zoo:</label>
+                        <select id="zoo-select" required>
+                            <option value="">-- Choose a Zoo --</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Your Rating:</label>
+                        <div class="rating-container">
+                            <div class="rating-stars">
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5">★</label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4">★</label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3">★</label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2">★</label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1">★</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-title">Title:</label>
+                        <input type="text" id="feedback-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-text">Your Review:</label>
+                        <textarea id="feedback-text" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Photos (optional):</label>
+                        <input type="file" id="feedback-photos" multiple accept="image/*">
+                        <small>You can upload up to 3 photos</small>
+                    </div>
+                    
+                    <button type="submit" class="btn">Submit Feedback</button>
+                </form>
+            </div>
+            
+            <div class="reviews-section">
+                <h2>Recent Reviews</h2>
+                <div id="reviews-container">
+                    <!-- Reviews will be loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Footer same as previous examples -->
+    </footer>
+
+    <script src="/scripts/data.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/feedback.js"></script>
+</body>
+</html>

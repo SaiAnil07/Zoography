@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Zoo Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        header {
+            background: green;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .booking-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 600px) {
+            .booking-form {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .ticket-type {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .ticket-type input {
+            width: 60px;
+        }
+        .summary {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="zoo.html">Zoos</a>
+            <a href="animals.html">Animals</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Book Zoo Tickets</h1>
+        
+        <form id="bookingForm">
+            <div class="booking-form">
+                <div>
+                    <div class="form-group">
+                        <label for="zoo">Select Zoo:</label>
+                        <select id="zoo" required>
+                            <option value="">-- Choose --</option>
+                            <option value="delhi">Delhi Zoo</option>
+                            <option value="chennai">Chennai Zoo</option>
+                            <option value="mysuru">Mysuru Zoo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Visit Date:</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Time Slot:</label>
+                        <select id="time" required>
+                            <option value="">-- Choose --</option>
+                            <option value="morning">Morning (9AM-12PM)</option>
+                            <option value="afternoon">Afternoon (12PM-3PM)</option>
+                            <option value="evening">Evening (3PM-6PM)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="form-group">
+                        <label>Tickets:</label>
+                        
+                        <div class="ticket-type">
+                            <span>Adults (₹100):</span>
+                            <input type="number" id="adults" min="0" value="1">
+                        </div>
+                        
+                        <div class="ticket-type">
+                            <span>Children (₹50):</span>
+                            <input type="number" id="children" min="0" value="0">
+                        </div>
+                        
+                        <div class="ticket-type">
+                            <span>Seniors (₹60):</span>
+                            <input type="number" id="seniors" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="summary">
+                <h3>Order Summary</h3>
+                <div id="summaryContent">
+                    <p>Select options to see details</p>
+                </div>
+                <div class="summary-item total">
+                    <span>Total:</span>
+                    <span id="totalAmount">₹0</span>
+                </div>
+            </div>
+            
+            <button type="submit">Book Tickets</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy;2025 Zoography</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+            
+            // Get form elements
+            const form = document.getElementById('bookingForm');
+            const zooSelect = document.getElementById('zoo');
+            const dateInput = document.getElementById('date');
+            const timeSelect = document.getElementById('time');
+            const adultsInput = document.getElementById('adults');
+            const childrenInput = document.getElementById('children');
+            const seniorsInput = document.getElementById('seniors');
+            const summaryDiv = document.getElementById('summaryContent');
+            const totalSpan = document.getElementById('totalAmount');
+            
+            // Ticket prices
+            const prices = {
+                adult: 100,
+                child: 50,
+                senior: 60
+            };
+            
+            // Update summary when any input changes
+            [zooSelect, dateInput, timeSelect, adultsInput, childrenInput, seniorsInput].forEach(element => {
+                element.addEventListener('change', updateSummary);
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Booking successful! Thank you.');
+                form.reset();
+                updateSummary();
+            });
+            
+            // Update order summary
+            function updateSummary() {
+                const zoo = zooSelect.value;
+                const date = dateInput.value;
+                const time = timeSelect.value;
+                const adults = parseInt(adultsInput.value) || 0;
+                const children = parseInt(childrenInput.value) || 0;
+                const seniors = parseInt(seniorsInput.value) || 0;
+                
+                let html = '';
+                let total = 0;
+                
+                if (zoo) {
+                    html += `<div class="summary-item"><span>Zoo:</span><span>${getZooName(zoo)}</span></div>`;
+                }
+                
+                if (date) {
+                    html += `<div class="summary-item"><span>Date:</span><span>${formatDate(date)}</span></div>`;
+                }
+                
+                if (time) {
+                    html += `<div class="summary-item"><span>Time:</span><span>${getTimeSlot(time)}</span></div>`;
+                }
+                
+                if (adults > 0) {
+                    const cost = adults * prices.adult;
+                    html += `<div class="summary-item"><span>Adults (${adults}):</span><span>₹${cost}</span></div>`;
+                    total += cost;
+                }
+                
+                if (children > 0) {
+                    const cost = children * prices.child;
+                    html += `<div class="summary-item"><span>Children (${children}):</span><span>₹${cost}</span></div>`;
+                    total += cost;
+                }
+                
+                if (seniors > 0) {
+                    const cost = seniors * prices.senior;
+                    html += `<div class="summary-item"><span>Seniors (${seniors}):</span><span>₹${cost}</span></div>`;
+                    total += cost;
+                }
+                
+                // Apply 10% discount for 4+ adults
+                if (adults >= 4) {
+                    const discount = total * 0.1;
+                    html += `<div class="summary-item"><span>Discount (10%):</span><span>-₹${discount.toFixed(2)}</span></div>`;
+                    total -= discount;
+                }
+                
+                summaryDiv.innerHTML = html || '<p>Select options to see details</p>';
+                totalSpan.textContent = `₹${total.toFixed(2)}`;
+            }
+            
+            // Helper functions
+            function getZooName(id) {
+                const zoos = {
+                    delhi: 'Delhi Zoo',
+                    chennai: 'Chennai Zoo',
+                    mysuru: 'Mysuru Zoo'
+                };
+                return zoos[id] || '';
+            }
+            
+            function getTimeSlot(id) {
+                const times = {
+                    morning: 'Morning (9AM-12PM)',
+                    afternoon: 'Afternoon (12PM-3PM)',
+                    evening: 'Evening (3PM-6PM)'
+                };
+                return times[id] || '';
+            }
+            
+            function formatDate(dateStr) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateStr).toLocaleDateString('en-IN', options);
+            }
+            
+            // Initialize
+            updateSummary();
+        });
+    </script>
+</body>
+</html>
